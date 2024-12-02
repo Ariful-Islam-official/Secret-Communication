@@ -49,55 +49,54 @@ Using `mainloop()` to check the GUI
 **Encryption Function:**
 ```
 def encrypt_message():
-    message = text_input.get("1.0", END)
-    key = key_input.get()
-    if not key:
-        result_display.config(text="Key cannot be empty!")
-        return
-    try:
-        encoded_bytes = base64.b64encode((message + key).encode("utf-8"))
-        result_display.config(text=encoded_bytes.decode("utf-8"))
-    except Exception as e:
-        result_display.config(text=f"Error: {str(e)}")
+    # Fetch message and key
+    message = text_input.get("1.0", END)  # Get and strip input
+    key = key_input.get()  # Get key and strip
+
+    combined_message = message + key  # Concatenate message and key
+    encoded_bytes = base64.b64encode(combined_message.encode("utf-8"))
+    encrypted_message = encoded_bytes.decode("utf-8")  # Convert bytes to string
+    result_output.delete(0, END)
+    result_output.insert(0, encrypted_message)  # Show encrypted message in Entry
 ```
 **Decryption Function:**
 ```
 def decrypt_message():
-    encrypted_text = text_input.get("1.0", END)
-    key = key_input.get()
-    if not key:
-        result_display.config(text="Key cannot be empty!")
-        return
-    try:
-        decoded_bytes = base64.b64decode(encrypted_text.strip())
-        decoded_message = decoded_bytes.decode("utf-8")
-        if decoded_message.endswith(key):
-            result_display.config(text=decoded_message[:-len(key)])
-        else:
-            result_display.config(text="Decryption failed: Incorrect key.")
-    except Exception as e:
-        result_display.config(text=f"Error: {str(e)}")
+    # Fetch encrypted message and key
+    encrypted_text = text_input.get("1.0", END)  # Get and strip input
+    key = key_input.get()  # Get key and strip
+    # Decode the encrypted message
+    decoded_bytes = base64.b64decode(encrypted_text)
+    decoded_message = decoded_bytes.decode("utf-8")
+    # Check if key matches
+    if decoded_message.endswith(key):
+        original_message = decoded_message[:-len(key)]  # Remove key from end
+        result_output.delete(0, END)
+        result_output.insert(0, original_message)  # Show decrypted message
+    else:
+        result_output.delete(0, END)
+        result_output.insert(0, "Error: Decryption failed. Incorrect key.")
 ```
 **Step 4: Design the GUI Layout**
 ```
-# Input field for the message
-Label(root, text="Enter your Message:", font=("Helvetica", 10)).pack(pady=5)
-text_input = Text(root, height=5, width=40)
+# Input for message
+Label(root, text="Enter your Message:", font=("Helvetica", 12)).pack(pady=5)
+text_input = Text(root, height=5, width=50)
 text_input.pack(pady=5)
 
-# Input field for the key
-Label(root, text="Enter Encryption Key:", font=("Helvetica", 10)).pack(pady=5)
-key_input = Entry(root, show="*", width=40)
+# Input for key
+Label(root, text="Enter Encryption Key:", font=("Helvetica", 12)).pack(pady=5)
+key_input = Entry(root, show="*", width=50)
 key_input.pack(pady=5)
 
-# Buttons for encryption and decryption
-Button(root, text="Encrypt", command=encrypt_message, bg="lightblue").pack(pady=5)
-Button(root, text="Decrypt", command=decrypt_message, bg="lightgreen").pack(pady=5)
+# Buttons
+Button(root, text="Encrypt", command=encrypt_message, bg="lightblue", font=("Helvetica", 12)).pack(pady=10)
+Button(root, text="Decrypt", command=decrypt_message, bg="lightgreen", font=("Helvetica", 12)).pack(pady=10)
 
-# Output display area
-Label(root, text="Output:", font=("Helvetica", 10)).pack(pady=5)
-result_display = Label(root, text="", font=("Helvetica", 10), wraplength=400)
-result_display.pack(pady=5)
+# Result display
+Label(root, text="Output (Copyable):", font=("Helvetica", 12)).pack(pady=5)
+result_output = Entry(root, font=("Helvetica", 12), width=50)
+result_output.pack(pady=5)
 ```
 **Step 5: Run the Application**
 ```
@@ -106,57 +105,108 @@ root.mainloop()
 
 ---
 
-### Full Code
+### Full Code With more part
 ```
 from tkinter import *
 import base64
 
 def encrypt_message():
-    message = text_input.get("1.0", END)
-    key = key_input.get()
+    # Fetch message and key
+    message = text_input.get("1.0", END)  # Get and strip input
+    key = key_input.get()  # Get key and strip
+    '''
     if not key:
-        result_display.config(text="Key cannot be empty!")
+        result_output.delete(0, END)
+        result_output.insert(0, "Error: Key cannot be empty!")
         return
+    if not message:
+        result_output.delete(0, END)
+        result_output.insert(0, "Error: Message cannot be empty!")
+        return
+    
     try:
-        encoded_bytes = base64.b64encode((message + key).encode("utf-8"))
-        result_display.config(text=encoded_bytes.decode("utf-8"))
+        # Encrypt the message
+        combined_message = message + key  # Concatenate message and key
+        encoded_bytes = base64.b64encode(combined_message.encode("utf-8"))
+        encrypted_message = encoded_bytes.decode("utf-8")  # Convert bytes to string
+        result_output.delete(0, END)
+        result_output.insert(0, encrypted_message)  # Show encrypted message in Entry
     except Exception as e:
-        result_display.config(text=f"Error: {str(e)}")
+        result_output.delete(0, END)
+        result_output.insert(0, f"Error: {str(e)}")  # Show any error
+    '''
+    combined_message = message + key  # Concatenate message and key
+    encoded_bytes = base64.b64encode(combined_message.encode("utf-8"))
+    encrypted_message = encoded_bytes.decode("utf-8")  # Convert bytes to string
+    result_output.delete(0, END)
+    result_output.insert(0, encrypted_message)  # Show encrypted message in Entry
 
 def decrypt_message():
-    encrypted_text = text_input.get("1.0", END)
-    key = key_input.get()
+    # Fetch encrypted message and key
+    encrypted_text = text_input.get("1.0", END)  # Get and strip input
+    key = key_input.get()  # Get key and strip
+    '''
     if not key:
-        result_display.config(text="Key cannot be empty!")
+        result_output.delete(0, END)
+        result_output.insert(0, "Error: Key cannot be empty!")
         return
+    if not encrypted_text:
+        result_output.delete(0, END)
+        result_output.insert(0, "Error: Encrypted text cannot be empty!")
+        return
+    
     try:
-        decoded_bytes = base64.b64decode(encrypted_text.strip())
+        # Decode the encrypted message
+        decoded_bytes = base64.b64decode(encrypted_text)
         decoded_message = decoded_bytes.decode("utf-8")
+        # Check if key matches
         if decoded_message.endswith(key):
-            result_display.config(text=decoded_message[:-len(key)])
+            original_message = decoded_message[:-len(key)]  # Remove key from end
+            result_output.delete(0, END)
+            result_output.insert(0, original_message)  # Show decrypted message
         else:
-            result_display.config(text="Decryption failed: Incorrect key.")
+            result_output.delete(0, END)
+            result_output.insert(0, "Error: Decryption failed. Incorrect key.")
     except Exception as e:
-        result_display.config(text=f"Error: {str(e)}")
+        result_output.delete(0, END)
+        result_output.insert(0, f"Error: {str(e)}")  # Show any error
+    '''
+    # Decode the encrypted message
+    decoded_bytes = base64.b64decode(encrypted_text)
+    decoded_message = decoded_bytes.decode("utf-8")
+    # Check if key matches
+    if decoded_message.endswith(key):
+        original_message = decoded_message[:-len(key)]  # Remove key from end
+        result_output.delete(0, END)
+        result_output.insert(0, original_message)  # Show decrypted message
+    else:
+        result_output.delete(0, END)
+        result_output.insert(0, "Error: Decryption failed. Incorrect key.")
 
+# Tkinter GUI setup
 root = Tk()
-root.geometry("500x300")
+root.geometry("500x400")
 root.title("Secret Communication Tool")
 
-Label(root, text="Enter your Message:", font=("Helvetica", 10)).pack(pady=5)
-text_input = Text(root, height=5, width=40)
+# Input for message
+Label(root, text="Enter your Message:", font=("Helvetica", 12)).pack(pady=5)
+text_input = Text(root, height=5, width=50)
 text_input.pack(pady=5)
 
-Label(root, text="Enter Encryption Key:", font=("Helvetica", 10)).pack(pady=5)
-key_input = Entry(root, show="*", width=40)
+# Input for key
+Label(root, text="Enter Encryption Key:", font=("Helvetica", 12)).pack(pady=5)
+key_input = Entry(root, show="*", width=50)
 key_input.pack(pady=5)
 
-Button(root, text="Encrypt", command=encrypt_message, bg="lightblue").pack(pady=5)
-Button(root, text="Decrypt", command=decrypt_message, bg="lightgreen").pack(pady=5)
+# Buttons
+Button(root, text="Encrypt", command=encrypt_message, bg="lightblue", font=("Helvetica", 12)).pack(pady=10)
+Button(root, text="Decrypt", command=decrypt_message, bg="lightgreen", font=("Helvetica", 12)).pack(pady=10)
 
-Label(root, text="Output:", font=("Helvetica", 10)).pack(pady=5)
-result_display = Label(root, text="", font=("Helvetica", 10), wraplength=400)
-result_display.pack(pady=5)
+# Result display
+Label(root, text="Output (Copyable):", font=("Helvetica", 12)).pack(pady=5)
+result_output = Entry(root, font=("Helvetica", 12), width=50)
+result_output.pack(pady=5)
+
 
 root.mainloop()
 ```
