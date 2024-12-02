@@ -44,6 +44,7 @@ screen.geometry("500x300")
 screen.title("Secret Communication Tool")
 ```
 Using `mainloop()` to check the GUI
+
 **Step 3: Define Functions**
 **Encryption Function:**
 ```
