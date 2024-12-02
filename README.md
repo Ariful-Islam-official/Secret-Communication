@@ -80,27 +80,27 @@ def decrypt_message():
 **Step 4: Design the GUI Layout**
 ```
 # Input for message
-Label(root, text="Enter your Message:", font=("Helvetica", 12)).pack(pady=5)
-text_input = Text(root, height=5, width=50)
+Label(screen, text="Enter your Message:", font=("Helvetica", 12)).pack(pady=5)
+text_input = Text(screen, height=5, width=50)
 text_input.pack(pady=5)
 
 # Input for key
-Label(root, text="Enter Encryption Key:", font=("Helvetica", 12)).pack(pady=5)
-key_input = Entry(root, show="*", width=50)
+Label(screen, text="Enter Encryption Key:", font=("Helvetica", 12)).pack(pady=5)
+key_input = Entry(screen, show="*", width=50)
 key_input.pack(pady=5)
 
 # Buttons
-Button(root, text="Encrypt", command=encrypt_message, bg="lightblue", font=("Helvetica", 12)).pack(pady=10)
-Button(root, text="Decrypt", command=decrypt_message, bg="lightgreen", font=("Helvetica", 12)).pack(pady=10)
+Button(screen, text="Encrypt", command=encrypt_message, bg="lightblue", font=("Helvetica", 12)).pack(pady=10)
+Button(screen, text="Decrypt", command=decrypt_message, bg="lightgreen", font=("Helvetica", 12)).pack(pady=10)
 
 # Result display
-Label(root, text="Output (Copyable):", font=("Helvetica", 12)).pack(pady=5)
-result_output = Entry(root, font=("Helvetica", 12), width=50)
+Label(screen, text="Output (Copyable):", font=("Helvetica", 12)).pack(pady=5)
+result_output = Entry(screen, font=("Helvetica", 12), width=50)
 result_output.pack(pady=5)
 ```
 **Step 5: Run the Application**
 ```
-root.mainloop()
+screen.mainloop()
 ```
 
 ---
