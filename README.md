@@ -39,8 +39,9 @@ import base64
 ```
 **Step 2: Create the GUI Window**
 ```
+# Tkinter GUI setup
 root = Tk()
-root.geometry("500x300")
+root.geometry("500x400")
 root.title("Secret Communication Tool")
 ```
 Using `mainloop()` to check the GUI
@@ -97,6 +98,7 @@ Button(root, text="Decrypt", command=decrypt_message, bg="lightgreen", font=("He
 Label(root, text="Output (Copyable):", font=("Helvetica", 12)).pack(pady=5)
 result_output = Entry(root, font=("Helvetica", 12), width=50)
 result_output.pack(pady=5)
+
 ```
 **Step 5: Run the Application**
 ```
