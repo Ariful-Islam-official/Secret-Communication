@@ -39,10 +39,11 @@ import base64
 ```
 **Step 2: Create the GUI Window**
 ```
-root = Tk()
-root.geometry("500x300")
-root.title("Secret Communication Tool")
+screen = Tk()
+screen.geometry("500x300")
+screen.title("Secret Communication Tool")
 ```
+Using `mainloop()` to check the GUI
 **Step 3: Define Functions**
 **Encryption Function:**
 ```
